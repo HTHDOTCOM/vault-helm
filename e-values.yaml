@@ -1034,7 +1034,7 @@ ui:
   enabled: true
   publishNotReadyAddresses: true
   # The service should only contain selectors for active Vault pod
-  activeVaultPodOnly: false
+  activeVaultPodOnly: true
   serviceType: "NodePort"
   serviceNodePort: null
   externalPort: 8200

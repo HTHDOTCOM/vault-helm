@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # Available parameters and their default values for the Vault chart.
 
 global:
@@ -65,7 +68,7 @@ injector:
   # image sets the repo and tag of the vault-k8s image to use for the injector.
   image:
     repository: "hashicorp/vault-k8s"
-    tag: "1.4.2"
+    tag: "1.5.0"
     pullPolicy: IfNotPresent
 
   # agentImage sets the repo and tag of the Vault image to use for the Vault Agent
@@ -73,7 +76,7 @@ injector:
   # required.
   agentImage:
     repository: "hashicorp/vault"
-    tag: "1.17.3"
+    tag: "1.18.1"
 
   # The default values for the injected Vault Agent containers.
   agentDefaults:
@@ -354,7 +357,7 @@ injector:
 server:
   # If true, or "-" with global.enabled true, Vault server will be installed.
   # See vault.mode in _helpers.tpl for implementation details.
-  enabled: true
+  enabled: "-"
 
   # [Enterprise Only] This value refers to a Kubernetes secret that you have
   # created that contains your enterprise license. If you are not using an
@@ -374,7 +377,7 @@ server:
 
   image:
     repository: "hashicorp/vault"
-    tag: "1.17.2"
+    tag: "1.18.1"
     # Overrides the default Image Pull Policy
     pullPolicy: IfNotPresent
 
@@ -811,7 +814,7 @@ server:
   # use dev mode for anything other than experimenting.
   # See https://developer.hashicorp.com/vault/docs/concepts/dev-server to know more
   dev:
-    enabled: false
+    enabled: true
 
     # Set VAULT_DEV_ROOT_TOKEN_ID value
     devRootToken: "root"
@@ -1018,8 +1021,7 @@ server:
     # container: {}
     securityContext:
       pod: {}
-      container: 
-        allowPrivilegeEscalation: false
+      container: {}
 
   # Should the server pods run on the host network
   hostNetwork: false
@@ -1031,11 +1033,11 @@ ui:
   # serviceType can be used to control the type of service created. For
   # example, setting this to "LoadBalancer" will create an external load
   # balancer (for supported K8S installations) to access the UI.
-  enabled: true
+  enabled: false
   publishNotReadyAddresses: true
   # The service should only contain selectors for active Vault pod
-  activeVaultPodOnly: true
-  serviceType: "NodePort"
+  activeVaultPodOnly: false
+  serviceType: "ClusterIP"
   serviceNodePort: null
   externalPort: 8200
   targetPort: 8200
@@ -1175,7 +1177,7 @@ csi:
 
     image:
       repository: "hashicorp/vault"
-      tag: "1.17.2"
+      tag: "1.18.1"
       pullPolicy: IfNotPresent
 
     logFormat: standard
